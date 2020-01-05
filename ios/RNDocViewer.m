@@ -118,6 +118,7 @@ RCT_EXPORT_METHOD(openDoc:(NSArray *)array callback:(RCTResponseSenderBlock)call
             QLPreviewController* cntr = [[QLPreviewController alloc] init];
             cntr.delegate = weakSelf;
             cntr.dataSource = weakSelf;
+        
             if (callback) {
                 callback(@[[NSNull null], array]);
             }
@@ -125,10 +126,47 @@ RCT_EXPORT_METHOD(openDoc:(NSArray *)array callback:(RCTResponseSenderBlock)call
             while (root.presentedViewController) {
                 root = [root presentedViewController];
             }
-            
-          
+                      
             [root presentViewController:cntr animated:YES completion:^{
+            
+                //ERG: Sharing override in Quicklook
+                    NSLog(@"Doc preview presented");
                 
+                //Delay:
+                double delayInSeconds = 0.3;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+
+                    if ([cntr.childViewControllers count] > 0) {
+                        
+                        NSLog(@"We got root");
+                        
+                        //Get current buttons
+                        UINavigationController *nav = (UINavigationController*) cntr.childViewControllers[0];
+                        UIBarButtonItem *origDoneButton = nav.navigationBar.items[0].leftBarButtonItem;
+                        //UIBarButtonItem *origShareButton = nav.navigationBar.items[0].rightBarButtonItem;
+                        
+                        //New actions
+                        //NSDictionary* dict = [array objectAtIndex:0];
+                        
+                        //New buttons
+                        UIBarButtonItem *newDone = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:origDoneButton.target action:origDoneButton.action];
+                        
+                        UIBarButtonItem *newShare = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePressed:)];
+                        
+                        //Add new Done and Share button
+                        nav.navigationBar.items[0].leftBarButtonItem = newDone;
+                        nav.navigationBar.items[0].rightBarButtonItem = newShare;
+                    }
+                    else{
+                        NSLog(@"Root is empty");
+                    }
+                    
+            
+                
+                // end Delay
+                });
+            // end override - Completion function
             }];
         });
 
@@ -344,6 +382,7 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
         //float progressValue = totalBytesWritten/totalBytesExpectedToWrite;
         prog = (float)totalBytesWritten/totalBytesExpectedToWrite;
         //NSLog(@"downloaded %d%%", (int)(100.0*prog));
+        
         NSNumber *progress = @([@(totalBytesWritten) floatValue]/[@(totalBytesExpectedToWrite) floatValue] * 100.0);
         [self sendEventWithName:@"RNDownloaderProgress" body:@{ @"totalBytesWritten": @(totalBytesWritten),
                                                                 @"totalBytesExpectedToWrite": @(totalBytesExpectedToWrite),
@@ -376,6 +415,37 @@ RCT_EXPORT_METHOD(showAlert:(NSString *)msg) {
         // Sent event tap on Ok
         [self sendEventWithName:@"OKEvent" body:@"Tap on OK"];
     }
+}
+
+
+#pragma mark - ERG sharePressed
+
+- (void)sharePressed:(id)sender
+{
+    NSLog(@"Share pressed %@", sender);
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *stringtoshare= @"This is a string to share";
+        
+        //NSData *doctoshare = [[NSData alloc] init]; //This is data to share.
+
+        NSArray *activityItems = @[stringtoshare];
+        
+        UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+        
+        activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo];
+        
+        [activityVC setCompletionHandler:^(NSString *activityType, BOOL completed) {
+            NSLog(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);
+        }];
+        
+        UIViewController* root = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+        
+        while (root.presentedViewController) {
+            root = [root presentedViewController];
+        }
+        [root presentViewController:activityVC animated:YES completion:nil];
+    });
 }
 
 /*- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
