@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B4DC6C023C2B89000AFE2D9 /* ERGBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4DC6BC23C2B89000AFE2D9 /* ERGBtn.m */; };
+		7B4DC6C123C2B89000AFE2D9 /* ERGActivityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4DC6BE23C2B89000AFE2D9 /* ERGActivityVC.m */; };
 		AAFA387B2088EDB000994D8E /* RNDocViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFA38792088EDB000994D8E /* RNDocViewer.m */; };
 		FAC8A856206AA17500EEE084 /* QLCustomPreviewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC8A855206AA17400EEE084 /* QLCustomPreviewItem.m */; };
 /* End PBXBuildFile section */
@@ -25,6 +27,10 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNDocViewer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNDocViewer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B4DC6BC23C2B89000AFE2D9 /* ERGBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ERGBtn.m; sourceTree = "<group>"; };
+		7B4DC6BD23C2B89000AFE2D9 /* ERGBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ERGBtn.h; sourceTree = "<group>"; };
+		7B4DC6BE23C2B89000AFE2D9 /* ERGActivityVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ERGActivityVC.m; sourceTree = "<group>"; };
+		7B4DC6BF23C2B89000AFE2D9 /* ERGActivityVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ERGActivityVC.h; sourceTree = "<group>"; };
 		AAFA38792088EDB000994D8E /* RNDocViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNDocViewer.m; sourceTree = "<group>"; };
 		AAFA387A2088EDB000994D8E /* RNDocViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNDocViewer.h; sourceTree = "<group>"; };
 		FAC8A854206AA17400EEE084 /* QLCustomPreviewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QLCustomPreviewItem.h; sourceTree = "<group>"; };
@@ -53,6 +59,10 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				7B4DC6BF23C2B89000AFE2D9 /* ERGActivityVC.h */,
+				7B4DC6BE23C2B89000AFE2D9 /* ERGActivityVC.m */,
+				7B4DC6BD23C2B89000AFE2D9 /* ERGBtn.h */,
+				7B4DC6BC23C2B89000AFE2D9 /* ERGBtn.m */,
 				AAFA387A2088EDB000994D8E /* RNDocViewer.h */,
 				AAFA38792088EDB000994D8E /* RNDocViewer.m */,
 				FAC8A854206AA17400EEE084 /* QLCustomPreviewItem.h */,
@@ -100,6 +110,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 58B511D21A9E6C8500147676;
@@ -119,6 +130,8 @@
 			files = (
 				AAFA387B2088EDB000994D8E /* RNDocViewer.m in Sources */,
 				FAC8A856206AA17500EEE084 /* QLCustomPreviewItem.m in Sources */,
+				7B4DC6C123C2B89000AFE2D9 /* ERGActivityVC.m in Sources */,
+				7B4DC6C023C2B89000AFE2D9 /* ERGBtn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

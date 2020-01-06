@@ -4,7 +4,6 @@
 //  Created by Wilco J.
 //  Copyright © 2020 ERG. All rights reserved.
 #import "ERGBtn.h"
-#import "UIButton+Property.h"
 #import <objc/runtime.h>
 
 @implementation ERGBtn(Property)
