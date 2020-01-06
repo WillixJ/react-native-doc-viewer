@@ -11,6 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AVKit/AVKit.h>
 #import "QLCustomPreviewItem.h"
+#import "ERGBtn.h"
 
 @implementation RNDocViewer
 CGFloat prog;
