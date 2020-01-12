@@ -5,7 +5,9 @@
 //  Copyright © 2020 ERG. All rights reserved.
 #import <Foundation/Foundation.h>
 
-@interface ERGBtn(Property)
+@interface ERGBtn : UIBarButtonItem {
+    NSArray *property; 
+}
 
 @property (nonatomic, retain) NSArray *property;
 

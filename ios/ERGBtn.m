@@ -6,7 +6,9 @@
 #import "ERGBtn.h"
 #import <objc/runtime.h>
 
-@implementation ERGBtn(Property)
+@implementation ERGBtn{
+    NSArray *Property;
+}
 
 static char UIB_PROPERTY_KEY;
 

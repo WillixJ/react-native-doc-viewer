@@ -153,8 +153,8 @@ RCT_EXPORT_METHOD(openDoc:(NSArray *)array callback:(RCTResponseSenderBlock)call
                         //New buttons
                         UIBarButtonItem *newDone = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:origDoneButton.target action:origDoneButton.action];
                         
-                        UIBarButtonItem *newShare = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePressed:)];
-                        
+                        ERGBtn *newShare = [[ERGBtn alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePressed:)];
+                        newShare.property = array;
                         //Add new Done and Share button
                         nav.navigationBar.items[0].leftBarButtonItem = newDone;
                         nav.navigationBar.items[0].rightBarButtonItem = newShare;
@@ -421,17 +421,18 @@ RCT_EXPORT_METHOD(showAlert:(NSString *)msg) {
 
 #pragma mark - ERG sharePressed
 
-- (void)sharePressed:(id)sender
+- (void)sharePressed:(ERGBtn*)sender
 {
-    NSLog(@"Share pressed %@", sender);
+    NSDictionary* dict_download = [sender.property objectAtIndex:0];
+    NSString* urlStrdownload = dict_download[@"url"];
+    //NSString* filename = dict_download[@"fileName"];
+    //NSString* filetype = dict_download[@"fileType"];
+    
+    NSLog(@"Share pressed %@", urlStrdownload);
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *stringtoshare= @"This is a string to share";
-        
-        //NSData *doctoshare = [[NSData alloc] init]; //This is data to share.
-
-        NSArray *activityItems = @[stringtoshare];
-        
+        NSURL *URL = [[NSURL alloc] initFileURLWithPath:urlStrdownload];
+        NSArray *activityItems = @[URL];
         UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
         
         activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo];
